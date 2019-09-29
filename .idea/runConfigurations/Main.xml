@@ -2,7 +2,7 @@
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.rotomer.stanford_corenlp_wrapper.Main" />
     <module name="stanford-corenlp-wrapper" />
-    <option name="VM_PARAMETERS" value="-mx16g" />
+    <option name="VM_PARAMETERS" value="-mx22g" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.rotomer.stanford_corenlp_wrapper.*" />

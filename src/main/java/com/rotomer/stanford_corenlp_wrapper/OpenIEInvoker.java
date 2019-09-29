@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
  * Reference implementation - https://stanfordnlp.github.io/CoreNLP/openie.html
  */
 class OpenIEInvoker {
-    private final StanfordCoreNLP _pipeline;
+    private final Properties _props;
 
     /**
      * Note: This is a very costly ctor: ~15-20 sec
@@ -34,9 +34,8 @@ class OpenIEInvoker {
         final Instant start = Instant.now();
 
         // Create the Stanford CoreNLP pipeline
-        final Properties props = new Properties();
-        props.setProperty("annotators", "tokenize,ssplit,pos,lemma,depparse,natlog,openie");
-        _pipeline = new StanfordCoreNLP(props);
+        _props = new Properties();
+        _props.setProperty("annotators", "tokenize,ssplit,pos,lemma,depparse,natlog,openie");
 
         System.out.println("Stanford Core NLP - finished initialization. Duration:" + Duration.between(start, Instant.now()).getSeconds());
     }
@@ -66,9 +65,12 @@ class OpenIEInvoker {
     }
 
     private Iterable<String> analyzeRelations(final String fileContent) {
+
+        final StanfordCoreNLP pipeline = new StanfordCoreNLP(_props);
+
         // Annotate a document
         Annotation doc = new Annotation(fileContent);
-        _pipeline.annotate(doc);
+        pipeline.annotate(doc);
 
         // Loop over sentences in the document
         final List<String> relations = new LinkedList<>();
